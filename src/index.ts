@@ -192,9 +192,3 @@ function createHlsVideo(options: Options) {
 
   return hls
 }
-
-const HlsVideo = {
-  init: createHlsVideo
-}
-
-export default HlsVideo

@@ -24,8 +24,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var Hls = __importStar(require("hls.js"));
-// @ts-ignore
-function HlsVideo(options) {
+function createHlsVideo(options) {
     // @ts-ignore
     if (!Hls.isSupported()) {
         return new Error('不支持 HLS');
@@ -51,6 +50,7 @@ function HlsVideo(options) {
         var arr = []; // url 数组
         for (var key in options.videoURL) {
             arr.push({
+                // @ts-ignore
                 url: options.videoURL[key],
                 type: key
             });
@@ -146,16 +146,20 @@ function HlsVideo(options) {
         };
         // 视频全屏
         hls.requestFullScreen = function () {
+            var fullScreen = [
+                'requestFullScreen',
+                'mozRequestFullScreen',
+                'webkitRequestFullScreen'
+            ];
             var videoDOM = options.videoDOM;
-            if (videoDOM["requestFullScreen"]) {
-                videoDOM["requestFullScreen"]();
-            }
-            else if (videoDOM["mozRequestFullScreen"]) {
-                videoDOM["mozRequestFullScreen"]();
-            }
-            else if (videoDOM["webkitRequestFullScreen"]) {
-                videoDOM["webkitRequestFullScreen"]();
-            }
+            fullScreen.forEach(function (item) {
+                // @ts-ignore
+                if (videoDOM[item]) {
+                    // @ts-ignore
+                    videoDOM[item]();
+                    return;
+                }
+            });
             this.VideoPlayer.play();
         };
         hls.play = function () {
@@ -176,8 +180,7 @@ function HlsVideo(options) {
         };
         hls.video = options.videoDOM;
         hls.duration = options.videoDOM.duration;
-        hls.paused = options.videoDOM.isPaused;
+        // hls.paused = options.videoDOM.isPaused
     });
     return hls;
 }
-exports.default = HlsVideo;
