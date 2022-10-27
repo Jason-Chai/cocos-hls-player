@@ -1,7 +1,17 @@
 import * as Hls from "hls.js";
 
-// @ts-ignore
-function createHlsVideo(options) {
+
+type Options = {
+  videoDOM: HTMLVideoElement,
+  videoURL: {
+    '1080': string,
+    '720': string,
+  },
+  timeUpdate: Function
+}
+
+
+function createHlsVideo(options: Options) {
   // @ts-ignore
   if (!Hls.isSupported()) {
     return new Error('不支持 HLS')
@@ -30,7 +40,9 @@ function createHlsVideo(options) {
     let tail: any = null // 尾节点
     let arr = [] // url 数组
     for (let key in options.videoURL) {
+
       arr.push({
+        // @ts-ignore
         url: options.videoURL[key],
         type: key
       })
@@ -132,14 +144,20 @@ function createHlsVideo(options) {
     }
     // 视频全屏
     hls.requestFullScreen = function () {
+      let fullScreen = [
+        'requestFullScreen',
+        'mozRequestFullScreen',
+        'webkitRequestFullScreen'
+      ]
       const {videoDOM} = options
-      if (videoDOM["requestFullScreen"]) {
-        videoDOM["requestFullScreen"]()
-      } else if (videoDOM["mozRequestFullScreen"]) {
-        videoDOM["mozRequestFullScreen"]()
-      } else if (videoDOM["webkitRequestFullScreen"]) {
-        videoDOM["webkitRequestFullScreen"]()
-      }
+      fullScreen.forEach((item) => {
+        // @ts-ignore
+        if (videoDOM[item]) {
+          // @ts-ignore
+          videoDOM[item]()
+          return
+        }
+      })
       this.VideoPlayer.play()
     }
     hls.play = function () {
@@ -166,7 +184,7 @@ function createHlsVideo(options) {
 
     hls.video = options.videoDOM
     hls.duration = options.videoDOM.duration
-    hls.paused = options.videoDOM.isPaused
+    // hls.paused = options.videoDOM.isPaused
 
 
   });
