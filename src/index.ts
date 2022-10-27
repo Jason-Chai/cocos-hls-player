@@ -11,7 +11,7 @@ type Options = {
 }
 
 
-function createHlsVideo(options: Options) {
+export function createHlsVideo(options: Options) {
   // @ts-ignore
   if (!Hls.isSupported()) {
     return new Error('不支持 HLS')

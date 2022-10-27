@@ -23,6 +23,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.createHlsVideo = void 0;
 var Hls = __importStar(require("hls.js"));
 function createHlsVideo(options) {
     // @ts-ignore
@@ -184,3 +185,4 @@ function createHlsVideo(options) {
     });
     return hls;
 }
+exports.createHlsVideo = createHlsVideo;
