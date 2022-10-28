@@ -1,1 +1,1 @@
-export declare const createHlsVideo: (options: string) => void;
+export default function createHlsVideo(options: any): any;

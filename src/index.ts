@@ -1,2 +1,2 @@
-import {createHlsVideo} from "./createHlsVideo";
+import createHlsVideo from "./createHlsVideo";
 export default createHlsVideo
