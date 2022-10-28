@@ -1,25 +1,21 @@
 {
   "name": "cocos-hls-player",
-  "version": "0.0.8",
-  "description": "cocos m3u8 player",
-  "main": "src/index.js",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc"
   },
-  "keywords": [
-    "cocos",
-    "m3u8",
-    "player"
-  ],
-  "author": "Jason",
-  "license": "ISC",
-  "dependencies": {
-    "hls.js": "^1.2.4",
-    "typescript": "^4.8.4"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Jason-Chai/cocos-hls-player.git"
   },
-  "devDependencies": {
-    "ts-loader": "^9.4.1",
-    "webpack": "^5.74.0"
-  }
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Jason-Chai/cocos-hls-player/issues"
+  },
+  "homepage": "https://github.com/Jason-Chai/cocos-hls-player#readme"
 }

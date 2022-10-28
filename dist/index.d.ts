@@ -1,1 +1,2 @@
-export declare function add(a: number, b: number): number;
+import { createHlsVideo } from "./createHlsVideo";
+export default createHlsVideo;
