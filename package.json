@@ -1,6 +1,6 @@
 {
   "name": "cocos-hls-player",
-  "version": "0.0.3",
+  "version": "1.0.3",
   "description": "cocos creator m3u8 player",
   "main": "index.js",
   "scripts": {
