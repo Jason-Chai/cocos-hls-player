@@ -46,11 +46,11 @@ function createHlsVideo(options) {
         next = urls.next;
         _hls.loadSource(urls.data.url);
         // @ts-ignore m3u8 文件解析成功
-        hlsa.on(options.hls.MANIFEST_PARSED, function (event, data) {
+        _hls.on(options.hls.MANIFEST_PARSED, function (event, data) {
             console.warn('m3u8 清单已加载', data);
         });
         // @ts-ignore 错误处理
-        hlsa.on(options.hls.Events.ERROR, function (event, data) {
+        _hls.on(options.hls.Events.ERROR, function (event, data) {
             console.log('[Hls.Error] ', event, data);
             var errorType = data.type;
             var errorDetails = data.details;
@@ -124,14 +124,24 @@ function createHlsVideo(options) {
             options.videoDOM.pause();
         };
         _hls.toggle = function () {
+            var videoDOM = options.videoDOM;
+            if (videoDOM.paused) {
+                videoDOM.play();
+            }
+            else {
+                videoDOM.pause();
+            }
         };
-        _hls.switchVideo = function () {
+        _hls.switchVideo = function (url) {
+            // todo...
+            console.log('todo...', url);
         };
-        _hls.volume = function () {
+        _hls.volume = function (volume) {
+            options.videoDOM.volume = volume;
         };
         _hls.video = options.videoDOM;
         _hls.duration = options.videoDOM.duration;
-        _hls.paused = options.videoDOM.isPaused;
+        _hls.paused = options.videoDOM.paused;
     });
     return _hls;
 }

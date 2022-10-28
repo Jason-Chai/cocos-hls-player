@@ -5,6 +5,7 @@ export default function createHlsVideo(options: any) {
   }
 
   const _hls: any = new options.hls();
+
   _hls.attachMedia(options.videoDOM);
 
   options.videoDOM.addEventListener("timeupdate", function () {
@@ -50,12 +51,12 @@ export default function createHlsVideo(options: any) {
     _hls.loadSource(urls.data.url);
 
     // @ts-ignore m3u8 文件解析成功
-    hlsa.on(options.hls.MANIFEST_PARSED, (event, data) => {
+    _hls.on(options.hls.MANIFEST_PARSED, (event, data) => {
       console.warn('m3u8 清单已加载', data)
     });
 
     // @ts-ignore 错误处理
-    hlsa.on(options.hls.Events.ERROR, (event, data) => {
+    _hls.on(options.hls.Events.ERROR, (event, data) => {
       console.log('[Hls.Error] ', event, data)
       const errorType = data.type;
       const errorDetails = data.details;
@@ -132,17 +133,26 @@ export default function createHlsVideo(options: any) {
     }
 
     _hls.toggle = function () {
+      const {videoDOM} = options
+      if (videoDOM.paused) {
+        videoDOM.play()
+      } else {
+        videoDOM.pause()
+      }
     }
 
-    _hls.switchVideo = function () {
+    _hls.switchVideo = function (url: string) {
+      // todo...
+      console.log('todo...', url)
     }
 
-    _hls.volume = function () {
+    _hls.volume = function (volume: number) {
+      options.videoDOM.volume = volume
     }
 
     _hls.video = options.videoDOM
     _hls.duration = options.videoDOM.duration
-    _hls.paused = options.videoDOM.isPaused
+    _hls.paused = options.videoDOM.paused
   });
 
   return _hls
